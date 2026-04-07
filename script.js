@@ -7,6 +7,8 @@
 //VARIABILI
 
 let numbersToRemember = [];
+let displayTimeout;
+
 
 const startBtn = document.getElementById('start-btn');
 const checkBtn = document.getElementById('check-btn');
@@ -19,11 +21,11 @@ const resultDiv = document.getElementById('result');
 
 //Funzione per iniziare il gioco
 function startGame() {
-    inputs.forEach(function (input) { // per ogni input nella lista
-        input.value = ''; // svuota il campo
-    });
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = ''; // svuota il campo
+    }
 
-    resultDiv.textContent = ''; // svuota il contenuto del div risultato
+    resultDiv.textContent = '';// svuota il contenuto del div risultato
 
     //Genera 5 numeri casuali (1-99)
     numbersToRemember = [];
@@ -49,13 +51,46 @@ function startGame() {
         numbersDisplay.classList.remove('show');
         numbersDisplay.textContent = '';
 
-        inputs.forEach(function (input) {
-            checkBtn.disabled = false;
-        });
+        // Riattiva tutti gli input
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = false;
+        }
 
+        // Riattiva il bottone
         checkBtn.disabled = false;
-        resultDiv.textContent = '';
-    }, 30 * 1000);
-}
 
-//Funzione per controllare i numeri inseriti
+        // Pulisce il risultato
+        resultDiv.textContent = '';
+
+    }, 30 * 1000);
+    //Funzione per controllare i numeri inseriti
+
+    function checkNumbers() {
+        const userNumbers = [];
+        const inputsArray = Array.from(inputs);
+
+        for (let i = 0; i < inputsArray.length; i++) {
+            userNumbers.push(parseInt(inputsArray[i].value));
+        }
+        // Controllo se sono stati inseriti tutti i numeri
+        if (userNumbers.some(num => isNaN(num))) {
+            resultDiv.textContent = 'Inserisci tutti i numeri!';
+            resultDiv.style.color = 'red';
+            return;
+        }
+
+        const correct = numbersToRemember.every(function (num, index) {
+            return num === userNumbers[index];
+        });
+        if (correct) {
+            resultDiv.textContent = 'Bravo! Hai ricordato tutti i numeri correttamente!';
+        } else {
+            resultDiv.textContent = `Sbagliato! I numeri erano: ${numbersToRemember.join(' ')}`;
+        }
+
+        // Disabilita il pulsante di spunta, abilita l'avvio per una nuova partita
+        checkBtn.disabled = true;
+        startBtn.disabled = false;
+    }
+
+
