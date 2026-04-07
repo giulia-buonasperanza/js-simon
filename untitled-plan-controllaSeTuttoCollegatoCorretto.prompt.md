@@ -1,0 +1,6 @@
+- Leggere `index.html`, `script.js` e `index.css`.
+- Verificare che `index.html` includa correttamente `index.css` e `script.js`.
+- Controllare che gli ID e gli input nel DOM corrispondano ai selettori JS.
+- Correggere il codice JS se necessario: selettori input, event listener, flusso gioco, stato iniziale e reset.
+- Confermare che il gioco si avvii con il pulsante "Avvia Gioco", mostri i numeri per 30 secondi, poi abiliti gli input e il pulsante "Controlla!".
+- Assicurarsi che il messaggio finale mostri il risultato corretto e che si possa riavviare una nuova partita.
