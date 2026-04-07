@@ -115,6 +115,8 @@ function resetGame() {
         inputs[i].value = '';
     }
 
+    resultDiv.textContent = '';
+
     clearTimeout(displayTimeout);
 }
 
